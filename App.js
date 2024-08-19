@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useRef, useState } from "react";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  Animated,
+  Button,
+} from "react-native";
+import Login from "./Scenes/Login";
+import HomeScene from "./Scenes/HomeScene";
+import SideBar from "./Scenes/SideBar";
+import GameMenu from "./Scenes/GameMenu";
+import GameResult from "./Scenes/SubScenes/GameResult";
+import TicketScene from "./Scenes/TicketScene";
+import FinalAccount from "./Scenes/SubScenes/FinalAccount";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import GameRules from "./Scenes/SubScenes/GameRules";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Home" component={HomeScene} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SideBar" component={SideBar} />
+          <Stack.Screen name="GameMenu" component={GameMenu} />
+          <Stack.Screen name="GameRules" component={GameRules} />
+          <Stack.Screen name="TicketScene" component={TicketScene} />
+          <Stack.Screen name="FinalAccount" component={FinalAccount} />
+          <Stack.Screen name="GameResult" component={GameResult} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
