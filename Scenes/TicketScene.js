@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, Text, View, Pressable, Alert, Modal } from "react-native";
 
 import useTicketStore from "../Utils/useTicketStore";
@@ -15,6 +15,7 @@ const TicketScene = ({ route }) => {
   const [gameCardData, setGameCardData] = useState(route?.params?.gameCardData);
   const [todaysDate, setTodaysDate] = useState();
   const [openClose, setOpenClose] = useState("open");
+  const previousOpenClose = useRef(0);
   const [functionLabel, setFunctionLabel] = useState("O");
   const { userDetails } = useTicketStore();
   const [userBalance, setUserBalance] = useState(userDetails?.userBalance);
@@ -185,6 +186,7 @@ const TicketScene = ({ route }) => {
   };
 
   const printTicket = async () => {
+    setOpenClose(previousOpenClose.current.openClose);
     if (completTickets.length < 1) {
       return Alert.alert("Cant Print Empty Ticket");
     }
@@ -208,10 +210,13 @@ const TicketScene = ({ route }) => {
           h2 {
             font-size: 52px; /* Double the size */
           }
+          h3 {
+            font-size: 42px; /* Double the size */
+          }
         </style>
-              <h1 >***** Ticket *****</h1>
-              <h1>Date: ${todaysDate[0]} : ${todaysDate[1]}</h1>
-              <h1>Game: ${gameCardData?.gameName}</h1>
+              <h3 >***** Ticket *****</h1>
+              <h3>Date: ${todaysDate[0]} : ${todaysDate[1]}</h3>
+              <h3>Game: ${gameCardData?.gameName}</h3>
               <hr />
           `;
 
@@ -228,9 +233,12 @@ const TicketScene = ({ route }) => {
           `;
 
         const { uri } = await Print.printToFileAsync({ html });
-        await Sharing.shareAsync(uri);
-
+        await Sharing.shareAsync(uri).then(() => {
+          setCompletTickets([]);
+          setCurrentTicket("");
+        });
         Alert.alert("Success", "Ticket printed and shared successfully");
+        // Need to Verify this
       } else {
         Alert.alert("Failure", "Ticket printing failed");
       }
