@@ -28,15 +28,7 @@ const GameMenu = () => {
     const cards = [];
     for (let index = 0; index <= gameCards?.data?.length - 1; index++) {
       cards.push(
-        <TouchableOpacity
-          key={index}
-          style={styles.card}
-          // onPress={() =>
-          //   navigation.navigate("TicketScene", {
-          //     gameCardData: gameCards?.data[index],
-          //   })
-          // }
-        >
+        <TouchableOpacity key={index} style={styles.card}>
           <View style={styles.cardBody}>
             <View style={styles.column}>
               <Text style={styles.cardText}>

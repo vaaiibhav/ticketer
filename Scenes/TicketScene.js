@@ -15,7 +15,7 @@ const TicketScene = ({ route }) => {
   const [gameCardData, setGameCardData] = useState(route?.params?.gameCardData);
   const [todaysDate, setTodaysDate] = useState();
   const [openClose, setOpenClose] = useState("open");
-  const previousOpenClose = useRef(0);
+  const previousOpenClose = useRef("open"); // Keep initial state same
   const [functionLabel, setFunctionLabel] = useState("O");
   const { userDetails } = useTicketStore();
   const [userBalance, setUserBalance] = useState(userDetails?.userBalance);
@@ -53,7 +53,9 @@ const TicketScene = ({ route }) => {
         const getRunningGame = await axios.get(
           `${serverUrl}games/get-running-game/${gameCardData.gameID}`
         );
-        setOpenClose(getOpenClose());
+        const newOpenClose = getOpenClose();
+        setOpenClose(newOpenClose);
+        previousOpenClose.current = newOpenClose; // Store it in ref
         // getRunningGame?.data?.length > 0 ? 'close' : 'open');
       } catch (error) {
         console.error("get-date", error);
@@ -234,7 +236,7 @@ const TicketScene = ({ route }) => {
 
         const { uri } = await Print.printToFileAsync({ html });
         await Sharing.shareAsync(uri).then(() => {
-          setCompletTickets([]);
+          setCompletTickets([]); // Reset completTickets after a successful print
           setCurrentTicket("");
         });
         Alert.alert("Success", "Ticket printed and shared successfully");

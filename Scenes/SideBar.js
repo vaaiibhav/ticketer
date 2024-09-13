@@ -43,15 +43,15 @@ const SideBar = () => {
           navigation.navigate("FinalAccount", { name: "vaaiibhav" })
         }
       >
-        <Text style={styles.buttonText}>Ticket Details</Text>
+        <Text style={styles.buttonText}>View Accounts</Text>
       </Pressable>
       <Pressable
         style={styles.button}
         onPress={() =>
-          navigation.navigate("FinalAccount", { name: "vaaiibhav" })
+          navigation.navigate("TicketDetails", { name: "vaaiibhav" })
         }
       >
-        <Text style={styles.buttonText}>View Accounts</Text>
+        <Text style={styles.buttonText}>Ticket Details</Text>
       </Pressable>
       <Pressable
         style={styles.button}

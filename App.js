@@ -16,6 +16,7 @@ import FinalAccount from "./Scenes/SubScenes/FinalAccount";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GameRules from "./Scenes/SubScenes/GameRules";
+import TicketDetails from "./Scenes/SubScenes/TicketDetails";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Screen name="GameMenu" component={GameMenu} />
           <Stack.Screen name="GameRules" component={GameRules} />
           <Stack.Screen name="TicketScene" component={TicketScene} />
+          <Stack.Screen name="TicketDetails" component={TicketDetails} />
           <Stack.Screen name="FinalAccount" component={FinalAccount} />
           <Stack.Screen name="GameResult" component={GameResult} />
         </Stack.Navigator>
